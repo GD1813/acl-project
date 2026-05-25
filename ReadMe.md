@@ -13,10 +13,10 @@ The ACL is configured on the router to block traffic from a specific PC while al
 - 2 PCs  
 
 ### 📡 Connections
-- PC1 → Switch1  
-- Switch1 → Router (g0/0)  
-- Router (g0/1) → Switch2  
-- Switch2 → PC2  
+- PC0 → Switch0
+- Switch0 → Router (g0/0)  
+- Router (g0/1) → Switch1  
+- Switch1 → PC1
 
 ---
 
@@ -37,7 +37,7 @@ The ACL is configured on the router to block traffic from a specific PC while al
 
 ## 🖥️ IP Addressing
 
-### PC1
+### PC0
 - IP Address 192.168.10.2  
 - Subnet Mask 255.255.255.0  
 - Default Gateway 192.168.10.1  
@@ -52,7 +52,7 @@ The ACL is configured on the router to block traffic from a specific PC while al
 - IP Address 192.168.20.1  
 - Subnet Mask 255.255.255.0  
 
-### PC2
+### PC1
 - IP Address 192.168.20.2  
 - Subnet Mask 255.255.255.0  
 - Default Gateway 192.168.20.1  

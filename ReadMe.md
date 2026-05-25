@@ -14,8 +14,8 @@ The ACL is configured on the router to block traffic from a specific PC while al
 
 ### 📡 Connections
 - PC1 → Switch1  
-- Switch1 → Router (g00)  
-- Router (g01) → Switch2  
+- Switch1 → Router (g0/0)  
+- Router (g0/1) → Switch2  
 - Switch2 → PC2  
 
 ---
@@ -30,7 +30,7 @@ The ACL is configured on the router to block traffic from a specific PC while al
 ## 🎯 Project Goal
 - Allow normal communication initially  
 - Configure Standard ACL to block PC1 traffic  
-- Prevent PC1 from accessing Network 192.168.20.024  
+- Prevent PC1 from accessing Network 192.168.20.0/24  
 - Allow all other traffic  
 
 ---
@@ -44,11 +44,11 @@ The ACL is configured on the router to block traffic from a specific PC while al
 
 ### Router
 
-#### g00
+#### g0/0
 - IP Address 192.168.10.1  
 - Subnet Mask 255.255.255.0  
 
-#### g01
+#### g0/1
 - IP Address 192.168.20.1  
 - Subnet Mask 255.255.255.0  
 
@@ -77,7 +77,7 @@ The ACL is configured on the router to block traffic from a specific PC while al
 - Allowed all remaining traffic using `permit any`  
 
 ### 5. ACL Application
-- Applied ACL inbound on router interface g00  
+- Applied ACL inbound on router interface g0/0  
 
 ---
 
@@ -88,12 +88,12 @@ The ACL is configured on the router to block traffic from a specific PC while al
 enable
 configure terminal
 
-interface g00
+interface g0/0
 ip address 192.168.10.1 255.255.255.0
 no shutdown
 exit
 
-interface g01
+interface g0/1
 ip address 192.168.20.1 255.255.255.0
 no shutdown
 exit
@@ -107,7 +107,7 @@ access-list 10 permit any
 
 ### 🔹 Apply ACL to Interface
 ```bash
-interface g00
+interface g0/0
 ip access-group 10 in
 exit
 
@@ -131,7 +131,7 @@ show access-lists
 
 ### Verify Interface ACL
 ```bash
-show ip interface g00
+show ip interface g0/0
 ```
 
 ---
@@ -158,7 +158,7 @@ show ip interface g00
 
 ## 📂 Project Files
 - acl-standard-project.pkt  
-- imagestopology.png  
+- images/topology.png
 
 ---
 

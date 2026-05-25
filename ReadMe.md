@@ -23,7 +23,7 @@ The ACL is configured on the router to block traffic from a specific PC while al
 ## 🖼️ Packet Tracer Topology Diagram
 
 ```text
-![Topology](Images/Topology.png)
+![Topology](Images/topology.png)
 ```
 
 ---

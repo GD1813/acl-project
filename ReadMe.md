@@ -54,7 +54,7 @@ This project helps in understanding how Extended ACLs provide more control by fi
 - IP Address: 192.168.20.1  
 - Subnet Mask: 255.255.255.0  
 
-### PC
+### PC1
 - IP Address: 192.168.20.2  
 - Subnet Mask: 255.255.255.0  
 - Default Gateway: 192.168.20.1  

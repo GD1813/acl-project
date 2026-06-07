@@ -99,6 +99,7 @@ interface g0/1
 ip address 192.168.20.1 255.255.255.0
 no shutdown
 exit
+```
 
 ### 🔹 Extended ACL Configuration
 
@@ -152,7 +153,7 @@ show ip interface g0/0
 
 - PC0 could not ping PC1  
 - ICMP traffic was blocked successfully  
-- Other traffic was allowed using `permit ip any any`  
+- Remaining IP traffic was permitted using `permit ip any any`  
 - ACL rules were verified using `show access-lists`  
 - ACL placement was verified using `show ip interface g0/0`  
 

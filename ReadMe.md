@@ -1,11 +1,12 @@
 # ACL Project (Standard to Extended ACL Upgrade) - Cisco Packet Tracer
 
 ## 📌 Project Overview
-This project demonstrates the upgrade from a **Standard Access Control List (ACL)** to an **Extended Access Control List (ACL)** in Cisco Packet Tracer.
+This project demonstrates the implementation and upgrade of Access Control Lists (ACLs) in Cisco Packet Tracer.
 
-In the first version, a Standard ACL was used to filter traffic based only on the source IP address. In this upgraded version, an Extended ACL is used to block ICMP (Ping) traffic from a specific source device to a specific destination device while allowing all other traffic.
+In Version 1, a Standard ACL is used to filter traffic based only on the source IP address.  
+In Version 2, the project is upgraded to an Extended ACL, which filters traffic based on source IP address, destination IP address, and protocol type.
 
-This project helps in understanding how Extended ACLs provide more control by filtering traffic based on source IP address, destination IP address, and protocol type.
+The upgraded Extended ACL blocks ICMP (Ping) traffic from PC0 to PC1 while allowing all other traffic.
 
 ---
 
@@ -30,10 +31,11 @@ This project helps in understanding how Extended ACLs provide more control by fi
 
 ## 🎯 Project Goal
 - Verify normal communication before applying ACL  
+- Configure a Standard ACL using source IP filtering  
 - Upgrade from Standard ACL to Extended ACL  
-- Block ICMP (Ping) traffic from PC0 to PC1  
+- Block ICMP (Ping) traffic from PC0 to PC1 using Extended ACL  
 - Allow all other traffic  
-- Understand protocol-based traffic filtering  
+- Understand the difference between Standard and Extended ACLs  
 
 ---
 
@@ -65,20 +67,25 @@ This project helps in understanding how Extended ACLs provide more control by fi
 
 ### 1. Router Interface Configuration
 - Assigned IP addresses to router interfaces  
-- Enabled interfaces using `no shutdown`  
+- Enabled router interfaces using `no shutdown`  
 
 ### 2. PC Configuration
 - Assigned IP addresses to PCs  
 - Configured default gateways  
 
 ### 3. Connectivity Verification
-- Verified communication using ping before ACL configuration  
+- Verified communication between PC0 and PC1 using ping before applying ACL  
 
-### 4. Extended ACL Configuration
+### 4. Standard ACL Configuration (Version 1)
+- Created a Standard ACL to deny traffic from PC0 based on source IP address  
+- Applied the Standard ACL inbound on router interface g0/0  
+
+### 5. Extended ACL Upgrade (Version 2)
+- Removed the previous Standard ACL  
 - Created an Extended ACL to deny ICMP traffic from PC0 to PC1  
 - Allowed all remaining traffic using `permit ip any any`  
 
-### 5. ACL Application
+### 6. ACL Application
 - Applied the Extended ACL inbound on router interface g0/0, close to the source network  
 
 ---
@@ -86,6 +93,7 @@ This project helps in understanding how Extended ACLs provide more control by fi
 ## 💻 CLI Configuration
 
 ### 🔹 Router Interface Configuration
+
 ```bash
 enable
 configure terminal
@@ -101,14 +109,45 @@ no shutdown
 exit
 ```
 
-### 🔹 Extended ACL Configuration
+---
+
+### 🔹 Standard ACL Configuration (Version 1)
+
+```bash
+access-list 10 deny host 192.168.10.2
+access-list 10 permit any
+```
+
+### 🔹 Apply Standard ACL to Interface
+
+```bash
+interface g0/0
+ip access-group 10 in
+exit
+```
+
+---
+
+### 🔹 Remove Standard ACL Before Upgrade
+
+```bash
+interface g0/0
+no ip access-group 10 in
+exit
+
+no access-list 10
+```
+
+---
+
+### 🔹 Extended ACL Configuration (Version 2)
 
 ```bash
 access-list 100 deny icmp host 192.168.10.2 host 192.168.20.2
 access-list 100 permit ip any any
 ```
 
-### 🔹 Apply ACL to Interface
+### 🔹 Apply Extended ACL to Interface
 
 ```bash
 interface g0/0
@@ -141,45 +180,52 @@ show access-lists
 show ip interface g0/0
 ```
 
+### Verify Running Configuration
+
+```bash
+show running-config
+```
+
 ---
 
 ## ✅ Testing & Verification
 
 ### Before ACL
-
 - PC0 successfully pinged PC1  
 
-### After Extended ACL
+### After Standard ACL
+- Traffic from PC0 was blocked based on source IP address  
+- Standard ACL filtering was verified using `show access-lists`  
 
+### After Extended ACL Upgrade
 - PC0 could not ping PC1  
 - ICMP traffic was blocked successfully  
-- Remaining IP traffic was permitted using `permit ip any any`  
+- Remaining IP traffic was allowed using `permit ip any any`  
 - ACL rules were verified using `show access-lists`  
 - ACL placement was verified using `show ip interface g0/0`  
 
 ---
 
 ## 🧠 Skills Learned
-
 - Difference between Standard ACL and Extended ACL  
+- Standard ACL configuration  
 - Extended ACL configuration  
-- ICMP traffic filtering  
+- Source IP-based filtering  
 - Source and destination IP-based filtering  
 - Protocol-based access control  
+- ICMP traffic filtering  
 - ACL placement close to the source  
 - Network traffic control and troubleshooting  
 
 ---
 
 ## 🔄 Project Evolution
-
 - Version 1: Standard ACL using source IP filtering  
 - Version 2: Extended ACL using source IP, destination IP, and protocol filtering  
 
 ---
 
 ## 📂 Project Files
-
 - acl-standard-project.pkt  
 - acl-extended-project.pkt  
 - images/topology.png  
@@ -187,7 +233,8 @@ show ip interface g0/0
 ---
 
 ## 📌 Conclusion
+This project demonstrates the upgrade from Standard ACL to Extended ACL in Cisco Packet Tracer.
 
-This project demonstrates the upgrade from Standard ACL to Extended ACL in Cisco Packet Tracer. The Extended ACL was used to block ICMP traffic from PC0 to PC1 while allowing all other traffic.
+The Standard ACL version helped in understanding basic source IP-based filtering. The upgraded Extended ACL version provided more precise traffic control by blocking ICMP traffic from PC0 to PC1 while allowing all other traffic.
 
-Through this project, I understood how Extended ACLs provide more precise control than Standard ACLs by filtering traffic based on source IP address, destination IP address, and protocol type. This project helped build practical knowledge of traffic filtering and basic network security.
+Through this project, I gained practical understanding of ACL configuration, traffic filtering, protocol-based access control, and basic network security implementation.
